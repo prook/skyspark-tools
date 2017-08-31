@@ -51,6 +51,10 @@ watch() {
 	tail -f ${OUTFILE} -n 1000 --retry
 }
 
+build() {
+	fanbuild && ss restart
+}
+
 usage() {
 	cat <<EOF
 
@@ -65,6 +69,7 @@ Commands:
   status         Print SkySpark status
   restart        Restart SkySpark
   watch          Watch SkySpark's log
+  build          fanbuild && ss restart
 
 EOF
 }
@@ -82,5 +87,6 @@ case "${ACT}" in
 	t|status) print_status;;
 	r|restart) stop; start;;
 	w|watch) watch;;
+	b|build) build;;
 	*) usage;;
 esac
