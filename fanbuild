@@ -1,0 +1,19 @@
+#!/bin/sh
+
+CURR=`pwd`
+BUILD="build.fan"
+
+# Find something in a directory above the one you are in
+upfind() {
+	dir=`pwd`
+	while [ "$dir" != "/" ]; do
+		path=`find "$dir" -maxdepth 1 -name $1`
+		if [ ! -z $path ]; then
+			echo "$path"
+			return
+		fi
+		dir=`dirname "$dir"`
+	done
+}
+
+$(upfind ${BUILD}) $@
